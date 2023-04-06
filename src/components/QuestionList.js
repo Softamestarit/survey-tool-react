@@ -21,11 +21,23 @@ export default function QuestionList() {
     ];
 
   return (
-    <div className="ag-theme-material" style={{ height: 600, width: "100%", margin: "auto" }}>
+   /* <div className="ag-theme-material" style={{ height: 600, width: "100%", margin: "auto" }}>
       
       <AgGridReact
       columnDefs={columnDefs}
       rowData={survey}></AgGridReact>
-    </div>
+    </div> */
+<div>
+    <h2>SOFTAMESTARIEN KYSELYT</h2>
+<table>
+<tbody>
+<tr><th>{survey.name}</th></tr>
+{ survey.map((question) =>
+<tr key={question.id}>
+<td>{question.name}</td>
+</tr> )}
+</tbody>
+</table>
+</div>
   );
 }
