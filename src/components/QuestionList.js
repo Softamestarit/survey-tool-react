@@ -37,7 +37,7 @@ export default function QuestionList() {
         <thead>
           <tr>
             {survey.map((survey, index) => (
-              <th key={index}>{survey.name}</th>
+              <th key={index}>{survey.title}</th>
             ))}
           </tr>
         </thead>
