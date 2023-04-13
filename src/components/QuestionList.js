@@ -2,9 +2,17 @@ import React, { useState, useEffect } from "react";
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-material.css";
+import TextField from '@mui/material/TextField'; 
 
 export default function QuestionList() {
   const [survey, setSurvey] = useState([]);
+  const [answer, setAnswer] = useState('');
+
+  const handleChange = (event) => {
+    setAnswer(event.target.value);
+    console.log('answer '+ event.target.value);
+
+  };
 
   useEffect(() => fetchData(), []);
 
@@ -46,7 +54,16 @@ export default function QuestionList() {
             {survey.map((survey, index) => (
               <td key={index}>
                 {survey.questions.map((question, index) => (
-                  <p key={index}>{question.content}</p>
+                  <div key={index}>{question.content}
+                  <input
+                  type="text"
+                  id="answer"
+                  name="answer"
+                  onChange={handleChange}
+                  value={answer}/>
+                  </div>
+                  
+                  
                 ))}
               </td>
             ))}
