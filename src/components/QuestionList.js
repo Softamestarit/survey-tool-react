@@ -3,16 +3,12 @@ import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-material.css";
 import TextField from '@mui/material/TextField'; 
+import AddAnswer from "./AddAnswer";
 
 export default function QuestionList() {
   const [survey, setSurvey] = useState([]);
-  const [answer, setAnswer] = useState('');
-
-  const handleChange = (event) => {
-    setAnswer(event.target.value);
-    console.log('answer '+ event.target.value);
-
-  };
+//  const [answers, setAnswers] = useState({});
+//  const [answer, setAnswer] = useState('');
 
   useEffect(() => fetchData(), []);
 
@@ -26,7 +22,55 @@ export default function QuestionList() {
       .catch((err) => console.error(err));
   };
 
- /* const columnDefs = [
+  const saveAnswer = (answer) => {
+    fetch("http://localhost:8080/answers", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(answer),
+  })
+  .then((res) => fetchData())
+      .catch((err) => console.error(err));
+  };
+
+/*  const handleSubmit = (e) => {
+    e.preventDefault();
+    survey.forEach((s) =>{
+      s.questions.forEach((q) =>{
+      const answer = answers[q.questionId];
+      if(answer !== undefined) {
+        addAnswer(q.questionId, answer);
+
+      }
+    });
+  });
+    
+ };    
+  
+    const addAnswer = (questionId, answer) =>{
+      fetch("http://localhost:8080/answers", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+      questionId,
+      answer,
+      }),
+    })
+    .then((response) => response.json())
+    .then((data) => {
+       setAnswers((answers) => [data, ...answers]);
+       setAnswer('');
+    })
+    .catch((err) => {
+       console.log(err.message);
+    });
+};
+
+
+  const columnDefs = [
     { field: "name" },
     { field: "questions[0].content", headerName: "Question" },
   ]; */
@@ -42,33 +86,28 @@ export default function QuestionList() {
     <div>
       <h1>Softamestarien superkysely</h1>
       <table>
-        <thead>
           <tr>
-            {survey.map((survey, index) => (
-              <th key={index}>{survey.title}</th>
-            ))}
+          {survey.map((survey, index) => (
+  <td key={index}>
+    {survey.questions.map((question, index) => (
+      <div key={index}>
+        {question.content}
+        <AddAnswer saveAnswer = {(answer) => saveAnswer({questionId: question.questionId, ...answer})}/>
+    {/*     <TextField
+          value={answers[question.questionId] || ''}
+          onChange={(event) =>
+            setAnswers({
+              ...answers,
+              [question.questionId]: event.target.value,
+            })
+          }
+        /> */}
+      </div>
+    ))}
+    
+  </td>
+))}
           </tr>
-        </thead>
-        <tbody>
-          <tr>
-            {survey.map((survey, index) => (
-              <td key={index}>
-                {survey.questions.map((question, index) => (
-                  <div key={index}>{question.content}
-                  <input
-                  type="text"
-                  id="answer"
-                  name="answer"
-                  onChange={handleChange}
-                  value={answer}/>
-                  </div>
-                  
-                  
-                ))}
-              </td>
-            ))}
-          </tr>
-        </tbody>
       </table>
     </div>
   );
