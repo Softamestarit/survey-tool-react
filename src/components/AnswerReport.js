@@ -6,7 +6,7 @@ export default function AnswerReport() {
     useEffect (() => fetchData(), []);
 
     const fetchData = () => {
-        fetch("http://localhost:8080/surveys/1")
+        fetch("http://localhost:8080/surveys/2")
           .then((response) => response.json())
           .then((responseData) => {
             setQuestions(responseData.questions);
@@ -22,16 +22,16 @@ export default function AnswerReport() {
 
             <ul>
                 {questions.map((question, questionId) => (
-                <li key={questionId}>
-                    <p>{question.content}</p>
+                <p key={questionId}>
+                    <p>Kysymys: {question.content}</p>
                 
                 {question.answers.map((answer, answerId) => (
-                    <p key={answerId}>
-                    {answer.text}   
-                </p>
+                    <li key={answerId}>
+                    Vastaus: {answer.text}   
+                </li>
                     ))}
                     
-                </li>
+                </p>
                 ))}
             </ul>
 
