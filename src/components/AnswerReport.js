@@ -1,7 +1,4 @@
 import React, { useState, useEffect} from 'react';
-import { AgGridReact } from 'ag-grid-react';
-import 'ag-grid-community/styles/ag-grid.css';
-import 'ag-grid-community/styles/ag-theme-material.css';
 
 export default function AnswerReport() {
     const [questions, setQuestions] = useState([]);
@@ -21,12 +18,6 @@ export default function AnswerReport() {
 
     console.log(questions)
 
-    const columns = [
-        { headerName: "Question", field: "questions" },
-		{ headerName: "Answer", field: "answers" },
-		
-    ]
-
     return (
         <div>
             <h1>Kyselyn vastaukset</h1>
@@ -35,7 +26,7 @@ export default function AnswerReport() {
             <ul>
                {questions.map((question, questionId) => (
                 <li key={questionId}>
-                    <b> <h3>{question.content}</h3></b>
+                    <b> <p>{question.content}</p></b>
                 
                 {question.answers.map((answer, answerId) => (
                     <p key={answerId}>
