@@ -1,10 +1,10 @@
 import './App.css';
-import QuestionList from './components/QuestionList';
+import SurveyResponseForm from './components/SurveyResponseForm';
 
 function App() {
   return (
     <div className="App">
-      <QuestionList />
+      <SurveyResponseForm />
     </div>
   );
 }
