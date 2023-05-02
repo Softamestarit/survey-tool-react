@@ -1,16 +1,17 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { saveAnswers } from "../modules/answers";
+import { useParams } from "react-router";
 
-export default function QuestionsAndAnswers() {
+export default function SurveyResponseForm() {
 
+    const { id } = useParams();
     const [survey, setSurvey] = useState([]);
     const [answers, setAnswers] = useState([]);
 
-    useEffect(() => fetchData(), []);
-
+    
     const fetchData = () => {
-        fetch("https://survey-tool-spring-production.up.railway.app/surveys/1")
+        fetch("https://survey-tool-spring-production.up.railway.app/surveys/" + id)
           .then((response) => response.json())
           .then((responseData) => {
             setSurvey(responseData);
@@ -26,20 +27,30 @@ export default function QuestionsAndAnswers() {
           })
           .catch((err) => console.error(err));
       };
-
+      
+      useEffect(() => {
+        fetchData();
+      }, [id]);
+    
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setAnswers(prevAnswers => ({
-          ...prevAnswers,
-          [name]: {
-            ...prevAnswers[name],
+        const questionId = parseInt(name);
+        setAnswers(prevAnswers => {
+          const newAnswers = [...prevAnswers];
+          const index = newAnswers.findIndex(ans => ans.question.questionId === questionId);
+          newAnswers[index] = {
+            question: {
+              questionId
+            },
             text: value
-          }
-        }));
+          };
+          return newAnswers;
+        });
       };
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        console.log(Object.values(answers))
         saveAnswers(answers)
     }
 
@@ -50,7 +61,7 @@ export default function QuestionsAndAnswers() {
                 <Box key={question.questionId}>
                     <Typography variant="h6">{question.content}</Typography>
                     <TextField
-                    name = {(question.questionId - 1).toString() /* if works it works */}
+                    name = {(question.questionId).toString() /* if works it works */}
                     multiline
                     variant="outlined"
                     style={{ width: "70%" }}
