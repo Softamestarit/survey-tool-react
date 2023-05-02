@@ -1,13 +1,15 @@
 import React, { useState, useEffect} from 'react';
+import { useParams } from 'react-router';
 
 export default function AnswerReport() {
+    const { id } = useParams();
     const [questions, setQuestions] = useState([]);
     const [title, setTitle] = useState('');
     
-    useEffect (() => fetchData(), []);
+    useEffect (() => fetchData(), [id]);
 
     const fetchData = () => {
-        fetch("http://localhost:8080/surveys/2")
+        fetch("https://survey-tool-spring-production.up.railway.app/surveys/" + id)
           .then((response) => response.json())
           .then((responseData) => {
             setQuestions(responseData.questions)
@@ -25,7 +27,7 @@ export default function AnswerReport() {
 
             <ul>
                 {questions.map((question, questionId) => (
-                <p key={questionId}>
+                <div key={questionId}>
                     <p><strong>Kysymys {questionId + 1}:</strong> {question.content}</p>
                 
                 {question.answers.map((answer, answerId) => (
@@ -34,7 +36,7 @@ export default function AnswerReport() {
                 </p>
                     ))}
                     
-                </p>
+                </div>
                 ))}
             </ul>
 

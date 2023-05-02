@@ -9,6 +9,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/survey/:id/response" element={<SurveyResponseForm />} />
+          <Route path="/survey/:id/report" element={<AnswerReport />} />
         </Routes>
       </Router>
     </div>
