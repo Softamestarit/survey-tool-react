@@ -54,7 +54,10 @@ export default function SurveyResponseForm() {
         saveAnswers(answers)
     }
 
-    return (
+    const today = new Date().toISOString().substring(0, 19);
+
+    if (survey.startTime < today && survey.endTime > today) {
+      return (
         <Box>
           { // if survey is undefined don't do anything
           survey?.questions && survey.questions.map((question) => (
@@ -74,4 +77,15 @@ export default function SurveyResponseForm() {
           </Button>
         </Box>
     );
+    } else if (survey.startTime > today && survey.endTime > today){
+      return (
+        <p>Kyselyyn vastaaminen alkaa {survey.startTime}</p>
+      );
+    } else {
+      return (
+        <p>Kyselyyn vastaaminen on päättyny {survey.endTime}</p>
+      );
+    }
+
+    
 }
