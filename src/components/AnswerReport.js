@@ -25,16 +25,16 @@ export default function AnswerReport() {
 
             <ul>
                 {questions.map((question, questionId) => (
-                <li key={questionId}>
-                    <p>Kysymys: {question.content}</p>
+                <p key={questionId}>
+                    <p><strong>Kysymys {questionId + 1}:</strong> {question.content}</p>
                 
                 {question.answers.map((answer, answerId) => (
-                    <li key={answerId}>
-                    Vastaus: {answer.text}   
-                </li>
+                    <p key={answerId}>
+                    Vastaus {answerId + 1} : {answer.text}   
+                </p>
                     ))}
                     
-                </li>
+                </p>
                 ))}
             </ul>
 
