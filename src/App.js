@@ -1,11 +1,11 @@
 import './App.css';
+import SurveyResponseForm from './components/SurveyResponseForm';
 import AnswerReport from './components/AnswerReport';
-import QuestionList from './components/QuestionList';
 
 function App() {
   return (
     <div className="App">
-      <QuestionList />
+      <SurveyResponseForm />
       <AnswerReport/>
     </div>
   );

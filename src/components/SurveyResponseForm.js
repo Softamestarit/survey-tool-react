@@ -1,34 +1,31 @@
-import { Box, TextField, Typography } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
+import { saveAnswers } from "../modules/answers";
 
 export default function QuestionsAndAnswers() {
 
     const [survey, setSurvey] = useState([]);
     const [answers, setAnswers] = useState([]);
 
-    const answersData = {};
-
     useEffect(() => fetchData(), []);
 
     const fetchData = () => {
         fetch("https://survey-tool-spring-production.up.railway.app/surveys/1")
-        .then((response) => response.json())
-        .then((responseData) => {
+          .then((response) => response.json())
+          .then((responseData) => {
             setSurvey(responseData);
-
-            for(let i = 0; i < responseData.questions.length; i++) {
-                const answer = {
-                    questionId: responseData.questions[i].questionId,
-                    answerText: ''
-                }
-
-                answersData[answer.questionId] = answer;
-            }
-
+            const answersData = responseData.questions.map((question) => {
+              return {
+                question: {
+                  questionId: question.questionId
+                },
+                text: ''
+              };
+            });
             setAnswers(answersData);
-        })
-        .catch((err) => console.error(err));
-    };
+          })
+          .catch((err) => console.error(err));
+      };
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -36,12 +33,15 @@ export default function QuestionsAndAnswers() {
           ...prevAnswers,
           [name]: {
             ...prevAnswers[name],
-            answerText: value
+            text: value
           }
         }));
       };
 
-    console.log(answers)
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        saveAnswers(answers)
+    }
 
     return (
         <Box>
@@ -50,14 +50,17 @@ export default function QuestionsAndAnswers() {
                 <Box key={question.questionId}>
                     <Typography variant="h6">{question.content}</Typography>
                     <TextField
-                    name = {question.questionId.toString()}
+                    name = {(question.questionId - 1).toString() /* if works it works */}
                     multiline
                     variant="outlined"
                     style={{ width: "70%" }}
                     onChange={(e) => handleInputChange(e)}
                     />
-                </Box>
+                </Box>  
           ))}
+          <Button variant="contained" color="primary" onClick={handleSubmit}>
+              Submit answers
+          </Button>
         </Box>
     );
 }
