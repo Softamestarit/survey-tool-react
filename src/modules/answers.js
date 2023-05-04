@@ -1,6 +1,6 @@
 export const saveAnswers = (answers) => {
 
-    return fetch(`https://survey-tool-spring-production.up.railway.app/answers`, {
+    return fetch(`https://survey-tool-spring-production.up.railway.app/answers`,  {
         method: 'POST',
         headers: {
         'Content-Type': 'application/json'
@@ -11,3 +11,4 @@ export const saveAnswers = (answers) => {
         .catch(error => console.error(error));
       
 };
+//  http://localhost:8080/answers

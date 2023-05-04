@@ -12,6 +12,7 @@ export default function SurveyResponseForm() {
     
     const fetchData = () => {
         fetch("https://survey-tool-spring-production.up.railway.app/surveys/" + id)
+     //  fetch("http://localhost:8080/surveys/1")
           .then((response) => response.json())
           .then((responseData) => {
             setSurvey(responseData);
@@ -51,7 +52,19 @@ export default function SurveyResponseForm() {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(Object.values(answers))
-        saveAnswers(answers)
+// if some answers empty, confirm from user
+  if (answers.some((answer) => answer.text === '')) {
+    const confirmSubmit = window.confirm('Some questions are unanswered. Do you still want to continue?');
+    if (confirmSubmit) {
+    saveAnswers(answers)
+    setSurvey([]);
+      
+    }
+  } else {
+    saveAnswers(answers);
+    setSurvey([]);
+
+  } 
     }
 
     const today = new Date().toISOString().substring(0, 19);
@@ -77,7 +90,7 @@ export default function SurveyResponseForm() {
           </Button>
         </Box>
     );
-    } else if (survey.startTime > today && survey.endTime > today){
+    }  else if (survey.startTime > today && survey.endTime > today){
       return (
         <p>Kyselyyn vastaaminen alkaa {survey.startTime}</p>
       );
