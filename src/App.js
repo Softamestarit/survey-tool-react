@@ -4,12 +4,9 @@ import SurveyResponseForm from './components/SurveyResponseForm';
 import ChartAnswerReport from './components/ChartAnswerReport';
 import AnswerReport from './components/AnswerReport';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-<<<<<<< HEAD
-import { AppBar, Toolbar, Typography } from "@mui/material";
+import { AppBar, Toolbar } from "@mui/material";
 import logo from './components/logo.png';
-=======
 import TextAnswerReport from './components/TextAnswerReport';
->>>>>>> dc668c1e755c2b92f6806e38be0ee990f96ab065
 
 function App() {
   return (
