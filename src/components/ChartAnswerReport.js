@@ -3,7 +3,7 @@ import { useParams } from "react-router";
 import { PieChart, Pie, Cell, Legend, Tooltip } from "recharts";
 import _ from "lodash";
 
-export default function AnswerReport() {
+export default function ChartAnswerReport() {
   const { id } = useParams();
   const [questions, setQuestions] = useState([]);
   const [title, setTitle] = useState("");
@@ -56,7 +56,7 @@ export default function AnswerReport() {
                 Vastaus {answerId + 1} : {answer.text}
               </p>
             ))}
-            <PieChart width={400} height={400} style={{ margin: "0 auto" }}>
+            <PieChart width={400} height={400}>
               <Pie
                 data={data.filter((entry) => entry.questionId === questionId)}
                 dataKey="value"
