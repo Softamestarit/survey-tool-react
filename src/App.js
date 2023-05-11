@@ -1,6 +1,6 @@
 import './App.css';
 import SurveyResponseForm from './components/SurveyResponseForm';
-import AnswerReport from './components/AnswerReport';
+import AnswerReport from './components/ChartAnswerReport';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import TextAnswerReport from './components/TextAnswerReport';
 
