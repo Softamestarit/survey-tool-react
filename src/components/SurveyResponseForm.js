@@ -71,10 +71,10 @@ export default function SurveyResponseForm() {
 
     if (survey.startTime < today && survey.endTime > today) {
       return (
-        <Box>
+        <Box padding={3}>
           { // if survey is undefined don't do anything
           survey?.questions && survey.questions.map((question) => (
-                <Box key={question.questionId}>
+                <Box key={question.questionId} paddingBottom={4}>
                     <Typography variant="h6">{question.content}</Typography>
                     <TextField
                     name = {(question.questionId).toString() /* if works it works */}
