@@ -8,6 +8,8 @@ export default function SurveyResponseForm() {
     const { id } = useParams();
     const [survey, setSurvey] = useState([]);
     const [answers, setAnswers] = useState([]);
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
 
     
     const fetchData = () => {
@@ -16,6 +18,8 @@ export default function SurveyResponseForm() {
           .then((response) => response.json())
           .then((responseData) => {
             setSurvey(responseData);
+            setTitle(responseData.title);
+            setDescription(responseData.description);
             const answersData = responseData.questions.map((question) => {
               return {
                 question: {
@@ -72,6 +76,8 @@ export default function SurveyResponseForm() {
     if (survey.startTime < today && survey.endTime > today) {
       return (
         <Box padding={3}>
+          <h1>{title}</h1>
+          <p style={{ fontSize: 20 }}>{description}</p>
           { // if survey is undefined don't do anything
           survey?.questions && survey.questions.map((question) => (
                 <Box key={question.questionId} paddingBottom={4}>
