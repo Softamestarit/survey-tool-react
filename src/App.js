@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import SurveyResponseForm from './components/SurveyResponseForm';
-import AnswerReport from './components/AnswerReport';
+import AnswerReport from './components/ChartAnswerReport';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { AppBar, Toolbar, Typography } from "@mui/material";
 import logo from './components/logo.png';
